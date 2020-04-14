@@ -2,7 +2,7 @@
 
 > Managing and tracking emergency relief packages across cities, regions, and countries.
 
-![Emergency Relief Tracking Screenshot](/screenshot.png)
+![Emergency Relief Tracking Screenshot](/screenshot.jpg)
 
 ## About
 
