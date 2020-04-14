@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<!--
+* CoreUI - Free Bootstrap Admin Template
+* @version v3.0.0
+* @link https://coreui.io
+* Copyright (c) 2020 creativeLabs Łukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+-->
+<html lang="en">
+
+<head>
+  <base href="./">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta name="description" content="COVID Care Package Tracker">
+  <meta name="keyword" content="Ethiopia,COVID19,COVID-19,COVID,Addis Ababa">
+  <title>Ethio-COVID Care Package Tracker</title>
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/apple-touch-icon-60x60.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="/favicon-196x196.png" sizes="196x196" />
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="/favicon-128.png" sizes="128x128" />
+  <meta name="application-name" content="Ethio-COVID Response: Care Package Tracking" />
+  <meta name="msapplication-TileColor" content="#FDD30B" />
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
+  <meta name="msapplication-square70x70logo" content="/mstile-70x70.png" />
+  <meta name="msapplication-square150x150logo" content="/mstile-150x150.png" />
+  <meta name="msapplication-wide310x150logo" content="/mstile-310x150.png" />
+  <meta name="msapplication-square310x310logo" content="/mstile-310x310.png" />
+
+  <!-- Main styles for this application-->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
+  <!--<link href="css/jquery.dataTables.min.css" rel="stylesheet">-->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css" />
+  <!-- Global site tag (gtag.js) - Google Analytics-->
+  <!--  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      // Shared ID
+      gtag('config', 'UA-118965717-3');
+      // Bootstrap ID
+      gtag('config', 'UA-118965717-5');
+    </script> -->
+  <!--<link href="vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">-->
+  <script src="/js/libs/feathers.min.js"></script>
+  <script src="/js/libs/socket.io.min.js"></script>
+  <script src='/js/libs/mapbox-gl.js'></script>
+  <link href='/css/mapbox-gl.css' rel='stylesheet' />
+
+</head>
+
+<body class="c-app">
+
+  <div class="c-wrapper c-fixed-components">
+    <header class="c-header c-header-light c-header-fixed">
+      <div class="container-fluid">
+        <a class="c-header-brand d-lg-none" href="#">
+          <img src="img/logo.png" height="46" /></a>
+        <ul class="c-header-nav d-md-down-none">
+          <li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Dashboard</a></li>
+          <!--<li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Users</a></li>
+          <li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Settings</a></li>-->
+        </ul>
+      </div>
+    </header>
+    <div class="c-body">
+      <main class="c-main">
+        <div class="container-fluid">
+          <div class="fade-in">
+            <div class="row mb-3">
+              <div class="col-sm-12">
+                <h2>Ethio-COVID Emergency Relief Package Tracker</h2>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-6 col-lg-2">
+                <div id="packages-distributed" class="card text-white bg-gradient-success">
+                  <div class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
+                    <div>
+                      <div class="mb-3">
+                        <h5><strong># of packages distributed</strong></h5>
+                      </div>
+                      <h1 class="mb-4"><strong><svg class="c-icon c-icon-2xl mr-3">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-truck"></use>
+                          </svg> <span class="figure">-</span></strong></h1>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="organizations-registered" class="card text-white bg-gradient-info">
+                  <div class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
+                    <div>
+                      <div class="mb-3">
+                        <h5><strong># of organizations</strong></h5>
+                      </div>
+                      <h1 class="mb-4"><strong><svg class="c-icon c-icon-2xl mr-3">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-people"></use>
+                          </svg> <span class="figure">-</span></strong></h1>
+                    </div>
+                  </div>
+                </div>
+
+                <!--<div id="areas-served" class="card text-white bg-gradient-warning">
+                  <div class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
+                    <div>
+                      <div class="mb-3">
+                        <h5><strong># of subcities served</strong></h5>
+                      </div>
+                      <h1 class="mb-4"><strong><svg class="c-icon c-icon-2xl mr-3">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-map"></use>
+                          </svg> <span class="figure">-</span>/6</strong></h1>
+                    </div>
+                  </div>
+                </div>-->
+
+                <div id="collection_points" class="card text-white bg-gradient-danger">
+                  <div class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
+                    <div>
+                      <div class="mb-3">
+                        <h5><strong># of collection points</strong></h5>
+                      </div>
+                      <h1 class="mb-4"><strong><svg class="c-icon c-icon-2xl mr-3">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-location-pin"></use>
+                          </svg> <span class="figure">-</span></strong></h1>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="goods-distributed" class="card text-white bg-gradient-primary">
+                  <div class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
+                    <div>
+                      <div class="mb-3">
+                        <h5><strong># of goods distributed</strong></h5>
+                      </div>
+                      <h1 class="mb-4"><strong><svg class="c-icon c-icon-2xl mr-3">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-spreadsheet"></use>
+                          </svg> <span class="figure">-</span></strong></h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-10">
+                <div class="card" style="height: 45em; border-radius: 5px; border: 1px solid #aaa;">
+                  <div class="card-body h-100 p-0">
+                    <div id="map" class="h-100">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-5">
+              <div class="col-sm-12">
+                <div class="nav-tabs-boxed">
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#organizations-list"
+                        role="tab" aria-controls="organizations-list">Organizations</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#collection-center-list" role="tab"
+                        aria-controls="collection-center-list" onclick="loadCollectionCenters()">Collection Centers</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="organizations-list" role="tabpanel">
+                      <table id="organizations-table" class="table table-responsive-sm table-striped">
+                        <thead>
+                          <tr>
+                            <th>Organization Name</th>
+                            <th>Contact Phone</th>
+                            <th>Serving PSNP Households?</th>
+                            <th>Packages Delivered</th>
+                          </tr>
+                        </thead>
+                        <tbody class="organization-list">
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="tab-pane" id="collection-center-list" role="tabpanel">
+                      <table id="collection-center-table" class="table table-responsive-sm table-striped">
+                        <thead>
+                          <tr>
+                            <th>Collection Center Name</th>
+                            <th>Organization</th>
+                            <th>Organization Contact Number</th>
+                            <th>Subcity</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </main>
+      <!--<footer class="c-footer">
+        <div><a href="https://coreui.io">CoreUI</a> © 2020 creativeLabs.</div>
+        <div class="ml-auto">Powered by&nbsp;<a href="https://coreui.io/">CoreUI</a></div>
+      </footer>-->
+    </div>
+  </div>
+  <!-- CoreUI and necessary plugins-->
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  <script src="vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
+  <!--[if IE]><!-->
+  <script src="vendors/@coreui/icons/js/svgxuse.min.js"></script>
+  <!--<![endif]-->
+  <!-- Plugins and scripts required by this view-->
+  <!--<script src="vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
+  <script src="vendors/@coreui/utils/js/coreui-utils.js"></script>-->
+  <script src="js/main.js"></script>
+  <!--<script src="js/libs/jquery.dataTables.min.js"></script>-->
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
+
+  <script>
+    addOrg();
+    addDeliveries();
+    addShipments();
+    addSubcities();
+
+    async function loadOrganizations() {
+      let organizationList = await organizations.find({
+        query: {
+          $sort: {
+            name: 1
+          }
+        }
+      });
+      var orgArray = [];
+      for (element of organizationList.data) {
+        let deliveries_for_organization = await deliveries.find({
+          query: {
+            $select: ["num_of_packages_delivered", "id"],
+            organization_id: element.id,
+          }
+        });
+
+        var delivery_count = 0;
+        deliveries_for_organization.data.forEach(item => {
+          delivery_count += item.num_of_packages_delivered;
+        });
+        orgArray.push([element.name, element.contact_phone, element.psnp_registered, delivery_count]);
+      }
+
+      $('#organizations-table').DataTable({
+        data: orgArray,
+        order: [
+          [3, 'desc']
+        ],
+        paging: false
+      });
+    }
+
+    async function loadCollectionCenters() {
+      if (!($('#collection-center-table').hasClass('dataTable'))) {
+        //Do the same for Collection Centers
+        var collectionArray = [];
+        let collectionPoints = await collection_points.find({
+          query: {
+            include: "organizations"
+          },
+        });
+
+        for (element of collectionPoints) {
+          collectionArray.push([element.name, element.organization_name, element.contact_phone, "subcity"]);
+        }
+
+        $('#collection-center-table').DataTable({
+          data: collectionArray,
+          paging: false
+        });
+      }
+    }
+
+    loadOrganizations();
+
+    mapboxgl.accessToken =
+      'pk.eyJ1IjoiZXRoaW9waWFjb3ZpZDE5IiwiYSI6ImNrOHpiZ21oZjAwbjczbHJxOTltaG4xOXIifQ.LNRO0ZoyHYKCPceVVcS1HQ';
+    var default_center = [38.778652, 8.980138];
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/light-v10',
+        minZoom: 11,
+        center: default_center
+      })
+      .addControl(new mapboxgl.NavigationControl())
+      .addControl(new mapboxgl.FullscreenControl());
+
+    map.on('load', function () {
+      map.addSource("subcities", {
+        "type": "geojson",
+        "data": '/geojson/aa_subcities.geojson'
+      })
+      map.addLayer({
+        "id": "subcities",
+        "type": "fill",
+        "source": "subcities",
+        "layout": {},
+        'paint': {
+          'fill-color': '#088',
+          'fill-opacity': 0.05,
+        }
+      })
+      map.addLayer({
+        "id": "subcities_outline",
+        "type": "line",
+        "source": "subcities",
+        "layout": {},
+        'paint': {
+          'line-color': '#088',
+          'line-opacity': 0.8,
+        }
+      });
+
+      $(document).ready(function () {
+        addCollectionPoints();
+      });
+
+    });
+
+  </script>
+
+
+</body>
+
+</html>

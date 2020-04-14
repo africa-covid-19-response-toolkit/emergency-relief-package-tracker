@@ -1,0 +1,10 @@
+.marker {
+  background-image: url(/img/marker.svg);
+  width: 3em;
+  height: 3em;
+  cursor: pointer;
+}
+
+.infowindow {
+  max-width: 200px;
+}

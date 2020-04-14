@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<!--
+* CoreUI - Free Bootstrap Admin Template
+* @version v3.0.0
+* @link https://coreui.io
+* Copyright (c) 2020 creativeLabs Łukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+-->
+<html lang="en">
+
+<head>
+  <base href="./">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta name="description" content="COVID Care Package Tracker">
+  <meta name="keyword" content="Ethiopia,COVID19,COVID-19,COVID,Addis Ababa">
+  <title>Ethio-COVID Care Package Tracker</title>
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/apple-touch-icon-60x60.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="/favicon-196x196.png" sizes="196x196" />
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="/favicon-128.png" sizes="128x128" />
+  <meta name="application-name" content="Ethio-COVID Response: Care Package Tracking" />
+  <meta name="msapplication-TileColor" content="#FDD30B" />
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
+  <meta name="msapplication-square70x70logo" content="/mstile-70x70.png" />
+  <meta name="msapplication-square150x150logo" content="/mstile-150x150.png" />
+  <meta name="msapplication-wide310x150logo" content="/mstile-310x150.png" />
+  <meta name="msapplication-square310x310logo" content="/mstile-310x310.png" />
+
+  <!-- Main styles for this application-->
+  <link href="css/style.css" rel="stylesheet">
+  <!-- Global site tag (gtag.js) - Google Analytics-->
+  <!--  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      // Shared ID
+      gtag('config', 'UA-118965717-3');
+      // Bootstrap ID
+      gtag('config', 'UA-118965717-5');
+    </script> -->
+  <!--<link href="vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">-->
+  <script src="/js/libs/feathers.min.js"></script>
+  <script src="/js/libs/socket.io.min.js"></script>
+  <script src='/js/libs/mapbox-gl.js'></script>
+  <link href='/css/mapbox-gl.css' rel='stylesheet' />
+
+</head>
+
+<body class="c-app">
+
+  <div class="c-wrapper c-fixed-components">
+    <header class="c-header c-header-light c-header-fixed">
+      <div class="container-fluid">
+        <a class="c-header-brand d-lg-none" href="#">
+          <img src="img/logo.png" height="46" /></a>
+        <ul class="c-header-nav d-md-down-none">
+          <li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Dashboard</a></li>
+          <!--<li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Users</a></li>
+          <li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Settings</a></li>-->
+        </ul>
+      </div>
+    </header>
+    <div class="c-body">
+      <main class="c-main">
+        <div class="container-fluid">
+          <div class="fade-in">
+            <div class="row mb-3">
+              <div class="col-sm-12">
+                <h2>Ethio-COVID: Register Shipments</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div id="create-shipment" class="card">
+                  <div class="card-header"><strong>Register Shipment</strong> <small>Form</small></div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="organization">Organization</label>
+                          <select class="form-control form-control-lg" id="organization"></select>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="collection-point">Collection Point</label>
+                          <select class="form-control form-control-lg" id="collection-point"></select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <label for="num_packages">Number of packages</label>
+                          <input class="form-control form-control-lg clearable" id="num_packages" type="number"
+                            placeholder="Enter the number of packages">
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <!-- Enter items in -->
+                    <div class="row">
+                      <style>
+                        div#item-div input[type=checkbox] {
+                          transform: scale(2);
+                          outline: none;
+                        }
+
+                      </style>
+                      <div class="col-sm-12">
+                        <h4>Select items</h4>
+                        <div id="item-div">
+
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <label for="organization-pin">Organization PIN</label>
+                          <input class="form-control form-control-lg" id="organization-pin" type="number"
+                            placeholder="Enter the organization's PIN">
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="card-footer">
+                    <button id="shipment-submit" class="btn btn-primary btn-block btn-lg" type="submit">
+                      Submit</button>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <!--<footer class="c-footer">
+        <div><a href="https://coreui.io">CoreUI</a> © 2020 creativeLabs.</div>
+        <div class="ml-auto">Powered by&nbsp;<a href="https://coreui.io/">CoreUI</a></div>
+      </footer>-->
+    </div>
+  </div>
+  <!-- CoreUI and necessary plugins-->
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  <script src="vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
+  <!--[if IE]><!-->
+  <script src="vendors/@coreui/icons/js/svgxuse.min.js"></script>
+  <!--<![endif]-->
+  <!-- Plugins and scripts required by this view-->
+  <!--<script src="vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
+  <script src="vendors/@coreui/utils/js/coreui-utils.js"></script>-->
+  <script src="js/main.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      // On page load, For shipment registration form, pull in registered organizations and add them to the select
+      organizations.find({
+        query: {
+          $sort: {
+            name: 1
+          }
+        }
+      }).then(result => {
+        result.data.forEach(element => {
+          $("select#organization").append(
+            `<option value="${element.id}">${element.name}</option>`);
+        });
+
+        // Get list of collection points for that organization
+        collection_points.find({
+          query: {
+            organization_id: parseInt($('select#organization option:selected').val()),
+            $sort: {
+              name: 1
+            }
+          }
+        }).then(points => {
+          points.data.forEach(point => {
+            $("select#collection-point").append(
+              `<option value="${point.id}">${point.name}</option>`);
+          });
+        });
+      });
+
+      // Function to handle changing of organization
+      $("select#organization").change(function () {
+        $("select#collection-point option").remove();
+        $("select#collection-point").attr("disabled", true);
+        collection_points.find({
+          query: {
+            organization_id: parseInt($('select#organization option:selected').val())
+          }
+        }).then(points => {
+          points.data.forEach(point => {
+            $("select#collection-point").append(
+              `<option value="${point.id}">${point.name}</option>`);
+          });
+          $("select#collection-point").attr("disabled", false);
+          // Set selected on collection point
+
+        });
+      });
+
+      // Load subcities
+      subcities.find({
+        query: {},
+        $sort: {
+          name: 1
+        }
+      }).then(result => {
+        result.data.forEach(subcity => {
+          $("select#subcity").append(
+            `<option value="${subcity.id}">${subcity.name}</option>`);
+        });
+      });
+
+
+      items.find({
+        query: {},
+        $sort: {
+          name: 1
+        }
+      }).then(result => {
+        result.data.forEach(item => {
+
+          var card_element = `
+          <div id="${item.id}" class="card border-info mb-3">
+            <div class="card-body">
+              <div class="form-check">
+                <input class="form-check-input form-control-lg" type="checkbox" value=""
+                  id="">
+                <label class="form-check-label col-form-label-lg ml-2 mt-1" for="defaultCheck1">
+                  <span class="item-name">${item.name}</span>
+                </label>
+              </div>
+              <div class="quantity-field collapse multi-collapse" id="">
+                <div class="input-group mb-2 mr-sm-2 mt-2">
+                  <input class="quantity form-control clearable form-control-lg" type="number" class="form-control" placeholder="Quantity">
+                  <div class="input-group-append">
+                    <div class="input-group-text unit">${item.unit}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>`;
+
+          $("div#item-div").append(card_element);
+        });
+
+        // Set all quantities to number of packages on quantity change
+        $('input#num_packages').change(function () {
+          $('div#item-div input.quantity').val($(this).val());
+        });
+
+        $('div#item-div div.card input[type=checkbox]').change(function () {
+          if (this.checked) {
+            // the checkbox is now checked
+            $(this).parent().parent().find('div.quantity-field').collapse('show');
+          } else {
+            // the checkbox is now no longer checked
+            $(this).parent().parent().find('div.quantity-field').collapse('hide');
+          }
+        });
+
+      });
+    });
+
+    // Submit shipment
+    $('button#shipment-submit').click(function (e) {
+      e.preventDefault;
+
+      // Combine all items into a string
+      var items = [];
+
+      $('div#item-div input[type=checkbox]:checked').each(function (index, value) {
+        let item_entry = {
+          item_id: parseInt($(value).closest('div.card')[0].id),
+          name: $(value).closest('div.card-body').find('span.item-name').html(),
+          quantity: parseInt($(value).closest('div.card-body').find('input.quantity').val()),
+          unit: $(value).closest('div.card-body').find('div.unit').html()
+        }
+        items.push(item_entry);
+      });
+
+      shipments.create({
+          "organization_id": parseInt($('select#organization option:selected').val()),
+          "collection_point_id": parseInt($('select#collection-point option:selected').val()),
+          "subcity_id": parseInt($('select#subcity option:selected').val()),
+          "number_of_packages": parseInt($('input#num_packages').val()),
+          "pin_code": parseInt($('input#organization-pin').val()),
+          "items": items
+        }).then(result => {
+          alert("Successfully submitted!");
+          $("div#create-shipment input.clearable").val("");
+          $('div#create-shipment input:checkbox').prop('checked', false);
+          $('div#create-shipment div.quantity-field').collapse('hide');
+        })
+        .catch(error => {
+          alert(error.message);
+        });;
+    });
+
+  </script>
+
+</body>
+
+</html>

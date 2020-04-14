@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<!--
+* CoreUI - Free Bootstrap Admin Template
+* @version v3.0.0
+* @link https://coreui.io
+* Copyright (c) 2020 creativeLabs Łukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+-->
+<html lang="en">
+
+<head>
+  <base href="./">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta name="description" content="COVID Care Package Tracker">
+  <meta name="keyword" content="Ethiopia,COVID19,COVID-19,COVID,Addis Ababa">
+  <title>Ethio-COVID Emergency Relief Package Tracker</title>
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/apple-touch-icon-60x60.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="/favicon-196x196.png" sizes="196x196" />
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="/favicon-128.png" sizes="128x128" />
+  <meta name="application-name" content="Ethio-COVID Response: Care Package Tracking" />
+  <meta name="msapplication-TileColor" content="#FDD30B" />
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
+  <meta name="msapplication-square70x70logo" content="/mstile-70x70.png" />
+  <meta name="msapplication-square150x150logo" content="/mstile-150x150.png" />
+  <meta name="msapplication-wide310x150logo" content="/mstile-310x150.png" />
+  <meta name="msapplication-square310x310logo" content="/mstile-310x310.png" />
+
+  <!-- Main styles for this application-->
+  <link href="css/style.css" rel="stylesheet">
+  <!-- Global site tag (gtag.js) - Google Analytics-->
+  <!--  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      // Shared ID
+      gtag('config', 'UA-118965717-3');
+      // Bootstrap ID
+      gtag('config', 'UA-118965717-5');
+    </script> -->
+  <!--<link href="vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">-->
+  <script src="/js/libs/feathers.min.js"></script>
+  <script src="/js/libs/socket.io.min.js"></script>
+  <script src='/js/libs/mapbox-gl.js'></script>
+  <link href='/css/mapbox-gl.css' rel='stylesheet' />
+
+</head>
+
+<body class="c-app">
+
+  <div class="c-wrapper c-fixed-components">
+    <header class="c-header c-header-light c-header-fixed">
+      <div class="container-fluid">
+        <a class="c-header-brand d-lg-none" href="#">
+          <img src="img/logo.png" height="46" /></a>
+        <ul class="c-header-nav d-md-down-none">
+          <li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Dashboard</a></li>
+          <!--<li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Users</a></li>
+          <li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Settings</a></li>-->
+        </ul>
+      </div>
+    </header>
+    <div class="c-body">
+      <main class="c-main">
+        <div class="container-fluid">
+          <div class="fade-in">
+            <div class="row mb-3">
+              <div class="col-sm-12">
+                <h2>Ethio-COVID Care Package Tracker</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div id="create-collection-point" class="card">
+                  <div class="card-header"><strong>Create Collection Point</strong> <small>Form</small></div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="collection-point-name">Collection Point Name</label>
+                          <input class="form-control" id="collection-point-name" type="text"
+                            placeholder="Enter the name of the collection point">
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="collection-point-organization">Organization</label>
+                          <select class="form-control" id="collection-point-organization"></select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-12 mb-3">
+                        <button id="get-location" class="btn btn-lg btn-primary btn-block mb-4 d-md-none"> Get GPS
+                          Position</button>
+                        <div id="collection-point-map" style="height: 40em; border: 1px solid #bbb;"></div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <label for="collection-point-org-pin">Organization PIN</label>
+                          <input class="form-control" id="collection-point-org-pin" type="number"
+                            placeholder="Enter the organization's PIN">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <button id="collection-point-submit" class="btn btn-primary btn-lg" type="submit"> Submit</button>
+                  </div>
+                </div>
+
+                <div id="create-item" class="card">
+                  <div class="card-header"><strong>Create Item</strong> <small>Form</small></div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="item-name">Name</label>
+                          <input class="form-control" id="item-name" type="text"
+                            placeholder="Enter the name of the item">
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="item-unit">Unit of measurement</label>
+                          <input class="form-control" id="item-unit" type="text"
+                            placeholder="Enter the unit of measurement (e.g. kgs, bottles, etc.)">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <button id="item-submit" class="btn btn-primary btn-lg" type="submit"> Submit</button>
+                  </div>
+                </div>
+
+                <div id="create-organization" class="card">
+                  <div class="card-header"><strong>Create Organization</strong> <small>Form</small></div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="organization-name">Name</label>
+                          <input class="form-control" id="organization-name" type="text"
+                            placeholder="Enter the name of the organization">
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="organization-pin">PIN Code</label>
+                          <input class="form-control" id="organization-pin" type="number"
+                            placeholder="Enter the desired PIN">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="organization-contact-name">Contact Name</label>
+                          <input class="form-control" id="organization-contact-name" type="text"
+                            placeholder="Enter the name of the organization's contact person">
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="organization-contact-phone">Contact Phone</label>
+                          <input class="form-control" id="organization-contact-phone" type="text"
+                            placeholder="e.g. 0911456789">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="govt-registration">TIN/Trade License Number</label>
+                          <input class="form-control" id="govt-registration" type="text"
+                            placeholder="Enter the TIN or Trade License Number for the organization">
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-check checkbox pt-4">
+                          <input class="form-check-input" id="psnp" type="checkbox" value="">
+                          <label class="form-check-label" for="psnp">Delivering to PSNP Households?</label>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="card-footer">
+                    <button id="organization-submit" class="btn btn-primary btn-lg" type="submit"> Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <!--<footer class="c-footer">
+        <div><a href="https://coreui.io">CoreUI</a> © 2020 creativeLabs.</div>
+        <div class="ml-auto">Powered by&nbsp;<a href="https://coreui.io/">CoreUI</a></div>
+      </footer>-->
+    </div>
+  </div>
+  <!-- CoreUI and necessary plugins-->
+
+  <script src="/js/libs/jquery-3.4.1.slim.min.js"></script>
+  <script src="vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
+  <!--[if IE]><!-->
+  <script src="vendors/@coreui/icons/js/svgxuse.min.js"></script>
+  <!--<![endif]-->
+  <!-- Plugins and scripts required by this view-->
+  <!--<script src="vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
+  <script src="vendors/@coreui/utils/js/coreui-utils.js"></script>-->
+  <script src="js/main.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      // On page load, For collection point form, pull in registered organizations and add them to the select
+      organizations.find({
+        query: {}
+      }).then(result => {
+        result.data.forEach(element => {
+          $("select#collection-point-organization").append(
+            `<option value="${element.id}">${element.name}</option>`);
+        });
+      });
+
+      //Initialize collection point submission map
+      mapboxgl.accessToken =
+        'pk.eyJ1IjoiZnRzZWdheWUiLCJhIjoiY2s4djhobGpsMGdqdzNnb2szeGtlMmJkbCJ9.cYqPFSN7Hv_ZmkMFTKMiPw';
+
+      var default_center = [38.764544, 9.0079232];
+      var map = new mapboxgl.Map({
+        container: 'collection-point-map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        minZoom: 13,
+        center: default_center
+      });
+
+      // Default collection pin
+      $('div#collection-point-map').data('coordinates', default_center);
+
+      var marker = new mapboxgl.Marker({
+          anchor: 'bottom',
+          draggable: true,
+        }).setLngLat(default_center)
+        .addTo(map);
+
+      // Listen to drag event and set coordinates in map div data
+
+      function updateLocation() {
+        var lngLat = marker.getLngLat();
+        $('div#collection-point-map').data('coordinates', lngLat.toArray());
+      }
+      marker.on('dragend', updateLocation);
+
+      // Get Geolocation
+      $('button#get-location').click(function (e) {
+        e.preventDefault;
+        // Try geolocation
+        var geoSuccessHandler = function (position) {
+          console.log(position);
+          var coordinates = [position.coords.longitude, position.coords.latitude];
+          $('div#collection-point-map').data('coordinates', coordinates);
+          marker.setLngLat(coordinates);
+          map.setCenter(coordinates);
+        };
+
+        var geoErrorHandler = function (error) {
+          alert("Something went wrong! We weren't able to find you with GPS");
+          console.log(error);
+        };
+
+        var positionOptions = {
+          enableHighAccuracy: true,
+          timeout: 1000,
+          maximumAge: 500
+        };
+
+        navigator.geolocation.getCurrentPosition(geoSuccessHandler, geoErrorHandler, positionOptions);
+      });
+
+    });
+
+
+    // Submit collection point
+    $('button#collection-point-submit').click(function (e) {
+      e.preventDefault;
+      collection_points.create({
+          "name": $('input#collection-point-name').val(),
+          "organization_id": $('select#collection-point-organization').val(),
+          "location": {
+            "type": "Point",
+            "coordinates": [$('div#collection-point-map').data('coordinates')[0], $('div#collection-point-map')
+              .data('coordinates')[1]
+            ],
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            }
+          },
+          "pin_code": $('input#collection-point-org-pin').val()
+        }).then(result => {
+          alert("Successfully submitted!");
+          $("div#create-collection-point input").val("");
+        })
+        .catch(error => {
+          alert(error.message);
+        });
+    });
+
+    // Submit organization
+    $('button#organization-submit').click(function (e) {
+      e.preventDefault;
+      organizations.create({
+          "name": $('input#organization-name').val(),
+          "contact_name": $('input#organization-contact-name').val(),
+          "contact_phone": $('input#organization-contact-phone').val(),
+          "pin_code": $('input#organization-pin').val(),
+          "govt_license_num": $('input#govt-registration').val(),
+          "psnp_registered": $('input#psnp').is(":checked"),
+        }).then(result => {
+          alert("Successfully submitted!");
+          $("div#create-organization input").val("");
+        })
+        .catch(error => {
+          alert(error.message);
+        });;
+    });
+
+    // Submit organization
+    $('button#item-submit').click(function (e) {
+      e.preventDefault;
+      items.create({
+          "name": $('input#item-name').val(),
+          "unit": $('input#item-unit').val()
+        }).then(result => {
+          alert("Successfully submitted!");
+          $("div#create-item input").val("");
+        })
+        .catch(error => {
+          alert(error.message);
+        });;
+    });
+
+  </script>
+
+</body>
+
+</html>

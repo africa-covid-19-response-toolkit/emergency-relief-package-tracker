@@ -1,0 +1,68 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register Delivery - Ethio COVID Response</title>
+  <meta name="description" content="Register a delivery of a care package">
+
+  <link rel="stylesheet" href="/register_delivery/bulma.min.css">
+
+</head>
+
+<body>
+  <img src="/register_delivery/logo.png" />
+  <section class="section" style="padding-bottom: 1em; padding-top: 1em;">
+    <h1 class="title">
+      Register Delivery
+    </h1>
+    <p class="subtitle">
+      Enter details of the delivery below
+    </p>
+  </section>
+
+  <div class="container is-fluid">
+
+    <div class="field">
+      <label class="label">Organization</label>
+      <div class="control">
+        <div class="select is-fullwidth is-medium">
+          <select id="organization">
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label"># of packages delivered</label>
+      <div class="control">
+        <input id="num_packages_delivered" class="input is-medium" type="number"
+          placeholder="Number of packages delivered" value="1">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Organization PIN</label>
+      <div class="control">
+        <input id="org-pin" class="input is-medium" type="number" placeholder="Your organization's PIN" value="0">
+      </div>
+    </div>
+
+    <br />
+
+    <div class="field">
+      <div class="control">
+        <button id="submit-delivery" class="button is-link is-medium is-fullwidth"
+          onclick="submitDelivery()">Submit</button>
+      </div>
+    </div>
+
+  </div>
+  <script src="/register_delivery/js.cookie.min.js"></script>
+  <script src="/register_delivery/scripts.js"></script>
+
+</body>
+
+</html>
