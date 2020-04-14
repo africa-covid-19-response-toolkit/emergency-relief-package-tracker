@@ -2,6 +2,7 @@ const validateOrganizationPin = require('../../hooks/validate-organization-pin')
 const {
   authenticate
 } = require('@feathersjs/authentication').hooks;
+const removeDeliveryLocation = require('../../hooks/remove-delivery-location');
 module.exports = {
   before: {
     all: [],
@@ -15,8 +16,8 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
-    get: [],
+    find: [removeDeliveryLocation()],
+    get: [removeDeliveryLocation()],
     create: [],
     update: [],
     patch: [],
