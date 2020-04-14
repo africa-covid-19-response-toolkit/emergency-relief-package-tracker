@@ -2,6 +2,8 @@
 
 > Managing and tracking emergency relief packages across cities, regions, and countries.
 
+![Emergency Relief Tracking Screenshot](/screenshot.png)
+
 ## About
 
 This project is designed to help local organizations and government institutions help track distribution of emergency relief packages along with their contents to ensure essential supplies are evenly distributed.
