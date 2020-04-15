@@ -10,7 +10,7 @@ const {
 module.exports = (options = {}) => {
   return async context => {
     // Request the organization id from the organization database
-    let organization = await context.app.service('organizations').get(parseInt(context.data.organization_id), {
+    let organization = await context.app.service('organizations').get(parseInt(context.data.organizationId), {
       internal: true
     });
 

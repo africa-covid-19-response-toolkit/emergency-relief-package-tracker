@@ -8,10 +8,10 @@ module.exports = (options = {}) => {
       return context;
     } else {
       if (context.method == "get") {
-        delete context.result.pin_code;
+        context.result.pin_code = "";
       } else {
         context.result.data.forEach(element => {
-          delete element.pin_code;
+          element.pin_code = "";
         });
         return context;
       }

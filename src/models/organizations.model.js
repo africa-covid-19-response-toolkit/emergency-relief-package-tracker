@@ -50,6 +50,9 @@ module.exports = function (app) {
   organizations.associate = function (models) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
+    organizations.hasMany(models.collection_points);
+    organizations.hasMany(models.deliveries);
+    organizations.hasMany(models.shipments);
   };
 
   return organizations;

@@ -2,12 +2,12 @@ const validateOrganizationPin = require('../../hooks/validate-organization-pin')
 const {
   authenticate
 } = require('@feathersjs/authentication').hooks;
-const associateCollectionPoints = require('../../hooks/associate-collection-points');
+const associateOrganizationToCollectionCenter = require('../../hooks/associate-organization-to-collection-center');
 module.exports = {
   before: {
     all: [],
-    find: [],
-    get: [],
+    find: [associateOrganizationToCollectionCenter()],
+    get: [associateOrganizationToCollectionCenter()],
     create: [validateOrganizationPin()],
     update: [authenticate('jwt')],
     patch: [authenticate('jwt')],
@@ -26,7 +26,7 @@ module.exports = {
 
   error: {
     all: [],
-    find: [associateCollectionPoints()],
+    find: [],
     get: [],
     create: [],
     update: [],

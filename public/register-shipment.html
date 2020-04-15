@@ -191,7 +191,7 @@
         // Get list of collection points for that organization
         collection_points.find({
           query: {
-            organization_id: parseInt($('select#organization option:selected').val()),
+            organizationId: parseInt($('select#organization option:selected').val()),
             $sort: {
               name: 1
             }
@@ -210,7 +210,7 @@
         $("select#collection-point").attr("disabled", true);
         collection_points.find({
           query: {
-            organization_id: parseInt($('select#organization option:selected').val())
+            organizationId: parseInt($('select#organization option:selected').val())
           }
         }).then(points => {
           points.data.forEach(point => {
@@ -305,7 +305,7 @@
       });
 
       shipments.create({
-          "organization_id": parseInt($('select#organization option:selected').val()),
+          "organizationId": parseInt($('select#organization option:selected').val()),
           "collection_point_id": parseInt($('select#collection-point option:selected').val()),
           "subcity_id": parseInt($('select#subcity option:selected').val()),
           "number_of_packages": parseInt($('input#num_packages').val()),

@@ -197,7 +197,6 @@
                             <th>Collection Center Name</th>
                             <th>Organization</th>
                             <th>Organization Contact Number</th>
-                            <th>Subcity</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -252,7 +251,7 @@
         let deliveries_for_organization = await deliveries.find({
           query: {
             $select: ["num_of_packages_delivered", "id"],
-            organization_id: element.id,
+            organizationId: element.id,
           }
         });
 
@@ -282,8 +281,8 @@
           },
         });
 
-        for (element of collectionPoints) {
-          collectionArray.push([element.name, element.organization_name, element.contact_phone, "subcity"]);
+        for (element of collectionPoints.data) {
+          collectionArray.push([element.name, element.organization.name, element.organization.contact_phone]);
         }
 
         $('#collection-center-table').DataTable({

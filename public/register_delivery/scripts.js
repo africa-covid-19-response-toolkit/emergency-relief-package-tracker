@@ -21,7 +21,7 @@
      myHeaders.append("Content-Type", "application/json");
 
      var raw = JSON.stringify({
-       "organization_id": parseInt(document.getElementById("organization").value),
+       "organizationId": parseInt(document.getElementById("organization").value),
        "num_of_packages_delivered": parseInt(document.getElementById("num_packages_delivered").value),
        "pin_code": parseInt(document.getElementById("org-pin").value),
        "location": {

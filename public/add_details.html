@@ -152,6 +152,26 @@
                   </div>
                 </div>
 
+                <div id="list-items" class="card">
+                  <div class="card-header"><strong>List of items</strong> <small>Form</small></div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Item</th>
+                              <th>Unit</th>
+                            </tr>
+                          </thead>
+                          <tbody id="items-list">
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div id="create-organization" class="card">
                   <div class="card-header"><strong>Create Organization</strong> <small>Form</small></div>
                   <div class="card-body">
@@ -253,7 +273,7 @@
       var map = new mapboxgl.Map({
         container: 'collection-point-map',
         style: 'mapbox://styles/mapbox/streets-v11',
-        minZoom: 13,
+        minZoom: 11,
         center: default_center
       });
 
@@ -308,7 +328,7 @@
       e.preventDefault;
       collection_points.create({
           "name": $('input#collection-point-name').val(),
-          "organization_id": $('select#collection-point-organization').val(),
+          "organizationId": $('select#collection-point-organization').val(),
           "location": {
             "type": "Point",
             "coordinates": [$('div#collection-point-map').data('coordinates')[0], $('div#collection-point-map')
@@ -350,7 +370,7 @@
         });;
     });
 
-    // Submit organization
+    // Submit item
     $('button#item-submit').click(function (e) {
       e.preventDefault;
       items.create({
@@ -363,6 +383,21 @@
         .catch(error => {
           alert(error.message);
         });;
+    });
+
+    // List avaiable items
+    items.find({
+      query: {}
+    }).then(result => {
+      result.data.forEach(item => {
+        var tablerow = `
+          <tr>
+          <td>${item.name}</td>
+          <td>${item.unit}</td>
+          </tr>
+        `;
+        $('tbody#items-list').append(tablerow);
+      });
     });
 
   </script>

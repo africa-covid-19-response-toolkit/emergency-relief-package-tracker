@@ -6,10 +6,6 @@ const DataTypes = Sequelize.DataTypes;
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const deliveries = sequelizeClient.define('deliveries', {
-    organization_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
     num_of_packages_delivered: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -38,6 +34,7 @@ module.exports = function (app) {
   deliveries.associate = function (models) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
+    deliveries.belongsTo(models.organizations);
   };
 
   return deliveries;

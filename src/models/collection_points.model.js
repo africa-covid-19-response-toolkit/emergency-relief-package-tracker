@@ -10,10 +10,6 @@ module.exports = function (app) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    organization_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
     location: {
       type: DataTypes.GEOMETRY,
       allowNull: false
@@ -38,6 +34,7 @@ module.exports = function (app) {
   collectionPoints.associate = function (models) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
+    collectionPoints.belongsTo(models.organizations);
   };
 
   return collectionPoints;
