@@ -7,7 +7,7 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
-     
+
       },
       number_of_packages: {
         type: Sequelize.INTEGER,
@@ -21,11 +21,13 @@ module.exports = {
         type: Sequelize.JSONB,
         allowNull: true,
       },
-      cratedAt: {
+      createdAt: {
         type: Sequelize.DATE,
+        field: 'createdat'
       },
       updatedAt: {
         type: Sequelize.DATE,
+        field: 'updatedat'
       },
       organizationId: {
         type: Sequelize.INTEGER,

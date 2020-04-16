@@ -7,7 +7,7 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
-     
+
       },
       name: {
         type: Sequelize.STRING(255),
@@ -17,12 +17,14 @@ module.exports = {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
-      cratedAt: {
+      createdAt: {
         type: Sequelize.DATE,
+        field: 'createdat'
       },
       updatedAt: {
         type: Sequelize.DATE,
-      },
+        field: 'updatedat'
+      }
     });
   },
 
