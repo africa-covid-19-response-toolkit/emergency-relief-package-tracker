@@ -1,11 +1,4 @@
 <!DOCTYPE html>
-<!--
-* CoreUI - Free Bootstrap Admin Template
-* @version v3.0.0
-* @link https://coreui.io
-* Copyright (c) 2020 creativeLabs Łukasz Holeczek
-* Licensed under MIT (https://coreui.io/license)
--->
 <html lang="en">
 
 <head>
@@ -56,7 +49,6 @@
       // Bootstrap ID
       gtag('config', 'UA-118965717-5');
     </script> -->
-  <!--<link href="vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">-->
   <script src="/js/libs/feathers.min.js"></script>
   <script src="/js/libs/socket.io.min.js"></script>
   <script src='/js/libs/mapbox-gl.js'></script>
@@ -67,17 +59,40 @@
 <body class="c-app">
 
   <div class="c-wrapper c-fixed-components">
-    <header class="c-header c-header-light c-header-fixed">
+
+    <nav class="navbar navbar-expand-lg navbar-light brand-background">
       <div class="container-fluid">
-        <a class="c-header-brand d-lg-none" href="#">
-          <img src="img/logo.png" height="46" /></a>
-        <ul class="c-header-nav d-md-down-none">
-          <li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Dashboard</a></li>
-          <!--<li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Users</a></li>
-          <li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Settings</a></li>-->
-        </ul>
+        <a class="navbar-brand" href="/"><img id="response-team-logo" src="img/logo.svg" /></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Tools for organizations
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/register-shipment.html"><svg class="c-icon c-icon-2xl mr-3">
+                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-layers"></use>
+                  </svg>Register your shipments</a>
+                <a class="dropdown-item" href="/register-delivery.html"><svg class="c-icon c-icon-2xl mr-3">
+                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-truck"></use>
+                  </svg>Register your deliveries</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item"
+                  href="mailto:&#102;&#116;&#115;&#101;&#103;&#97;&#121;&#101;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;&#63;&#115;&#117;&#98;&#106;&#101;&#99;&#116;&#61;&#67;&#79;&#86;&#73;&#68;&#82;&#101;&#115;&#112;&#111;&#110;&#115;&#101;&#84;&#114;&#97;&#99;&#107;&#101;&#114;&#83;&#105;&#103;&#110;&#117;&#112;">Learn
+                  how to sign up your organization</a>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-    </header>
+    </nav>
+
     <div class="c-body">
       <main class="c-main">
         <div class="container-fluid">
@@ -103,7 +118,7 @@
                   </div>
                 </div>
 
-                <div id="organizations-registered" class="card text-white bg-gradient-info">
+                <div id="organizations-registered" class="card text-white bg-gradient-warning">
                   <div class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
                     <div>
                       <div class="mb-3">
@@ -116,20 +131,7 @@
                   </div>
                 </div>
 
-                <!--<div id="areas-served" class="card text-white bg-gradient-warning">
-                  <div class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
-                    <div>
-                      <div class="mb-3">
-                        <h5><strong># of subcities served</strong></h5>
-                      </div>
-                      <h1 class="mb-4"><strong><svg class="c-icon c-icon-2xl mr-3">
-                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-map"></use>
-                          </svg> <span class="figure">-</span>/6</strong></h1>
-                    </div>
-                  </div>
-                </div>-->
-
-                <div id="collection_points" class="card text-white bg-gradient-danger">
+                <div id="collection_points" class="card text-white bg-gradient-info">
                   <div class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
                     <div>
                       <div class="mb-3">
@@ -212,24 +214,15 @@
           </div>
         </div>
       </main>
-      <!--<footer class="c-footer">
-        <div><a href="https://coreui.io">CoreUI</a> © 2020 creativeLabs.</div>
-        <div class="ml-auto">Powered by&nbsp;<a href="https://coreui.io/">CoreUI</a></div>
-      </footer>-->
     </div>
   </div>
-  <!-- CoreUI and necessary plugins-->
 
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
   <script src="vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
   <!--[if IE]><!-->
   <script src="vendors/@coreui/icons/js/svgxuse.min.js"></script>
   <!--<![endif]-->
-  <!-- Plugins and scripts required by this view-->
-  <!--<script src="vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
-  <script src="vendors/@coreui/utils/js/coreui-utils.js"></script>-->
   <script src="js/main.js"></script>
-  <!--<script src="js/libs/jquery.dataTables.min.js"></script>-->
   <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
 
   <script>
