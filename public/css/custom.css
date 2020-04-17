@@ -8,3 +8,20 @@
 .infowindow {
   max-width: 200px;
 }
+
+.brand-background {
+  background-color: #fdd30b;
+}
+
+img#response-team-logo {
+  width: 10em;
+}
+
+nav.navbar ul {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+nav.navbar ul a.dropdown-item {
+  font-weight: bold;
+}
