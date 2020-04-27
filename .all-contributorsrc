@@ -22,6 +22,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "AppLixirDev",
+      "name": "AppLixir",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/13463363?v=4",
+      "profile": "http://www.applixir.com",
+      "contributions": [
+        "ideas",
+        "projectManagement"
+      ]
     }
   ],
   "contributorsPerLine": 7,
