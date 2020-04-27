@@ -4,7 +4,7 @@
 
 # Emergency Relief Package Tracker
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 > Managing and tracking emergency relief packages across cities, regions, and countries.
@@ -58,6 +58,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://deliveraddis.com"><img src="https://avatars1.githubusercontent.com/u/44697531?v=4" width="100px;" alt=""/><br /><sub><b>Feleg</b></sub></a><br /><a href="https://github.com/africa-covid-19-response-toolkit/emergency-relief-package-tracker/commits?author=dafrica1" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/naody"><img src="https://avatars3.githubusercontent.com/u/1115720?v=4" width="100px;" alt=""/><br /><sub><b>Naod Yeheyes</b></sub></a><br /><a href="https://github.com/africa-covid-19-response-toolkit/emergency-relief-package-tracker/commits?author=naody" title="Code">💻</a></td>
     <td align="center"><a href="http://www.applixir.com"><img src="https://avatars1.githubusercontent.com/u/13463363?v=4" width="100px;" alt=""/><br /><sub><b>AppLixir</b></sub></a><br /><a href="#ideas-AppLixirDev" title="Ideas, Planning, & Feedback">🤔</a> <a href="#projectManagement-AppLixirDev" title="Project Management">📆</a></td>
+    <td align="center"><a href="https://github.com/Dumbulo"><img src="https://avatars3.githubusercontent.com/u/25749298?v=4" width="100px;" alt=""/><br /><sub><b>Sergio</b></sub></a><br /><a href="#ideas-Dumbulo" title="Ideas, Planning, & Feedback">🤔</a> <a href="#projectManagement-Dumbulo" title="Project Management">📆</a></td>
   </tr>
 </table>
 
