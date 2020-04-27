@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "dafrica1",
+      "name": "Feleg",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/44697531?v=4",
+      "profile": "https://deliveraddis.com",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "emergency-relief-package-tracker",
+  "projectOwner": "africa-covid-19-response-toolkit",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
