@@ -1,3 +1,7 @@
+<div align="center">
+  <img alt="ACRT Logo" src="acrt_logo_black.png" width="650px">
+</div>
+
 # Emergency Relief Package Tracker
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
