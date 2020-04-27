@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="ACRT Logo" src="acrt_logo.png" width="650px">
+  <img alt="ACRT Logo" src="acrt_logo_black.png" width="650px">
 </div>
 
 # Emergency Relief Package Tracker
