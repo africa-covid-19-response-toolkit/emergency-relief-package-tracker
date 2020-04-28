@@ -8,6 +8,7 @@ module.exports = {
     username: process.env.PGNAME,
     password: process.env.PGPASS,
     database: process.env.PGDB,
+    host: process.env.HOST,
     url: app.get(dialect),
     migrationStorageTableName: '_migrations',
   },
