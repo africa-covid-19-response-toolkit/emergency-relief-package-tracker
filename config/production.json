@@ -1,4 +1,4 @@
 {
-  "host": "covid-volunteers-app.feathersjs.com",
+  "host": "HOST",
   "port": "PORT"
 }

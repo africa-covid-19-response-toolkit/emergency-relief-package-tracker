@@ -3,7 +3,7 @@ require('dotenv').config();
 
 module.exports = function (app) {
   //const connectionString = app.get('postgres');
-  const connectionString = `postgres://${process.env.PGNAME}:${process.env.PGPASS}@${process.env.HOST}:${process.env.PGPORT}/${process.env.PGDB}`;
+  const connectionString = `postgres://${process.env.PGNAME}:${process.env.PGPASS}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDB}`;
   const sequelize = new Sequelize(connectionString, {
     dialect: 'postgres',
     logging: false,

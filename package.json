@@ -27,7 +27,7 @@
     "test": "npm run lint && npm run mocha",
     "lint": "eslint src/. test/. --config .eslintrc.json",
     "dev": "nodemon src/",
-    "start": "sequelize db:migrate && node src/",
+    "start": "node src/",
     "mocha": "mocha test/ --recursive --exit",
     "migrate": "sequelize db:migrate"
   },
